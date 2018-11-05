@@ -60,6 +60,12 @@ def numbers_present(sentence):
 			return True
 	return False
 
+def letters_present(sentence):
+	for char in sentence:
+		if ord(char) in range(65, 90) or ord(char) in range(97, 122):
+			return True
+	return False
+
 def contains_sub_string(sentence, sub_string):
 	if sub_string in sentence:
 		return True
@@ -101,6 +107,9 @@ testBoolFunction(1, 2, is_odd(1), is_odd(2))
 
 print("Testing numbers_present:")
 testBoolFunction("abc 123", "I love my mom", numbers_present("abc 123"), numbers_present("I love my mom"))
+
+print("Testing letters_present:")
+testBoolFunction("abc 123", "123456789,.[]", letters_present("abc 123"), letters_present("123456789,.[]"))
 
 print("Testing contains_sub_string")
 testBoolFunction("This is a test, is a", "This is a test, Hello world!", contains_sub_string("This is a test", "is a"), contains_sub_string("This is a test", "Hello world!"))

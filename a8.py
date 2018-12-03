@@ -33,8 +33,8 @@ def turn(board, player, x, o):
 	else:
 		name = o
 	while True:
-		location = str(input(name + "'s turn. Choose a spot.  "))
-		if location not in "123456789" or len(location) != 1:
+		location = str(input(str(name) + "'s turn. Choose a spot.  "))
+		if inputcheck(location, 1, "123456789") == False:
 			print("Please input a number between 1 and 9")
 		else:
 			break
@@ -45,8 +45,21 @@ def turn(board, player, x, o):
 	if board[x][y] == ' ':
 		board[x][y] = player
 	else:
-		print("That spot is occupied")
-	return
+		turn(board, player, x, o)
+	return 0
+
+def inputcheck(string, length, chars):
+	for char in string:
+		if str(char) not in str(chars):
+			return False
+	if len(str(string)) != int(length):
+		return False
+	return True
+
+def switchplayer(player):
+	if player == 'X':
+		return 'O'
+	return 'X'
 
 def wincheck(board, player):
 	for i in range(3):
@@ -68,10 +81,7 @@ def wincheck(board, player):
 def game(board, player, wins, x, o):
 	while(wincheck(board, player) == "not done"):
 		turn(board, player, x, o)
-		if player == 'X':
-			player = 'O'
-		else: 
-			player = 'X'
+		player = switchplayer(player)
 	display(board)
 	if wincheck(board, player)  == 'X':
 		name = o
@@ -85,6 +95,7 @@ def game(board, player, wins, x, o):
 	if rematch == 'y':
 		player = reset(board)
 		game(board, player, wins, x, o)
+	print("Thanks for playing!")
 	return
 
 def incwins(board, player, wins, x, o):
